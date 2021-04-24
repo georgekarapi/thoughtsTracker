@@ -21,17 +21,15 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import Thought from './pages/Thought';
 
 const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
+        <Route exact path="/" render={(props) => <Home {...props} />}></Route>
+        <Route exact path="/new-thought" render={(props) => <Thought {...props} />}></Route>
+        <Route path="/thought/:id" render={(props) => <Thought {...props} />}></Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
