@@ -25,11 +25,11 @@ import Thought from './pages/Thought';
 
 const App: React.FC = () => (
   <IonApp>
-    <IonReactRouter>
+    <IonReactRouter basename="/thoughtsTracker">
       <IonRouterOutlet>
         <Route exact path="/" render={(props) => <Home {...props} />}></Route>
         <Route exact path="/new-thought" render={(props) => <Thought {...props} />}></Route>
-        <Route path="/thought/:id" render={(props) => <Thought {...props} />}></Route>
+        <Route exact path="/thought/:id" render={(props) => <Thought {...props} />}></Route>
       </IonRouterOutlet>
     </IonReactRouter>
   </IonApp>
