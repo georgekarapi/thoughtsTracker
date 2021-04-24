@@ -28,7 +28,7 @@ import { add, close } from 'ionicons/icons';
 import greekUtils from 'greek-utils';
 
 import { RouteComponentProps } from 'react-router-dom';
-import { happyFeelings, sadFeelings } from '../components/feelings';
+import { allFeelings } from '../components/feelings';
 
 const PopoverList: React.FC<{
   onHide: () => void;
@@ -44,8 +44,8 @@ const Feelings: React.FC<{
   removeFeeling: (a: string) => void;
   onDismiss: () => void;
 }> = ({ feelings, onDismiss, addFeeling, removeFeeling }) => {
-  const happyF = happyFeelings.map((f) => ({ val: f, isChecked: feelings.some((checked) => checked === f) }));
-  const sadF = sadFeelings.map((f) => ({ val: f, isChecked: feelings.some((checked) => checked === f) }));
+  const happyF = allFeelings.happy;
+  const sadF = allFeelings.sad;
   const [searchText, setSearchText] = useState('');
 
   const filterOut = (a: string) => {
