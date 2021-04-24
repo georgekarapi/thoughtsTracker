@@ -3,15 +3,15 @@
     "static/js/0.644d8fad.chunk.js": "/thoughtsTracker/static/js/0.644d8fad.chunk.js",
     "static/js/0.644d8fad.chunk.js.map": "/thoughtsTracker/static/js/0.644d8fad.chunk.js.map",
     "main.css": "/thoughtsTracker/static/css/main.8e9d19eb.chunk.css",
-    "main.js": "/thoughtsTracker/static/js/main.fe56235a.chunk.js",
-    "main.js.map": "/thoughtsTracker/static/js/main.fe56235a.chunk.js.map",
+    "main.js": "/thoughtsTracker/static/js/main.24f87d2e.chunk.js",
+    "main.js.map": "/thoughtsTracker/static/js/main.24f87d2e.chunk.js.map",
     "polyfills-dom.js": "/thoughtsTracker/static/js/polyfills-dom.88f8919a.chunk.js",
     "polyfills-dom.js.map": "/thoughtsTracker/static/js/polyfills-dom.88f8919a.chunk.js.map",
     "runtime-main.js": "/thoughtsTracker/static/js/runtime-main.f687360e.js",
     "runtime-main.js.map": "/thoughtsTracker/static/js/runtime-main.f687360e.js.map",
     "static/css/4.780bd64b.chunk.css": "/thoughtsTracker/static/css/4.780bd64b.chunk.css",
-    "static/js/4.b1e487cd.chunk.js": "/thoughtsTracker/static/js/4.b1e487cd.chunk.js",
-    "static/js/4.b1e487cd.chunk.js.map": "/thoughtsTracker/static/js/4.b1e487cd.chunk.js.map",
+    "static/js/4.bd367f5f.chunk.js": "/thoughtsTracker/static/js/4.bd367f5f.chunk.js",
+    "static/js/4.bd367f5f.chunk.js.map": "/thoughtsTracker/static/js/4.bd367f5f.chunk.js.map",
     "static/js/5.1e6e8392.chunk.js": "/thoughtsTracker/static/js/5.1e6e8392.chunk.js",
     "static/js/5.1e6e8392.chunk.js.map": "/thoughtsTracker/static/js/5.1e6e8392.chunk.js.map",
     "static/js/6.69815c64.chunk.js": "/thoughtsTracker/static/js/6.69815c64.chunk.js",
@@ -125,15 +125,15 @@
     "service-worker.js.map": "/thoughtsTracker/service-worker.js.map",
     "static/css/4.780bd64b.chunk.css.map": "/thoughtsTracker/static/css/4.780bd64b.chunk.css.map",
     "static/css/main.8e9d19eb.chunk.css.map": "/thoughtsTracker/static/css/main.8e9d19eb.chunk.css.map",
-    "static/js/4.b1e487cd.chunk.js.LICENSE.txt": "/thoughtsTracker/static/js/4.b1e487cd.chunk.js.LICENSE.txt",
+    "static/js/4.bd367f5f.chunk.js.LICENSE.txt": "/thoughtsTracker/static/js/4.bd367f5f.chunk.js.LICENSE.txt",
     "static/js/52.c366ae12.chunk.js.LICENSE.txt": "/thoughtsTracker/static/js/52.c366ae12.chunk.js.LICENSE.txt",
     "static/js/polyfills-dom.88f8919a.chunk.js.LICENSE.txt": "/thoughtsTracker/static/js/polyfills-dom.88f8919a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.f687360e.js",
     "static/css/4.780bd64b.chunk.css",
-    "static/js/4.b1e487cd.chunk.js",
+    "static/js/4.bd367f5f.chunk.js",
     "static/css/main.8e9d19eb.chunk.css",
-    "static/js/main.fe56235a.chunk.js"
+    "static/js/main.24f87d2e.chunk.js"
   ]
 }
