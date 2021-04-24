@@ -1,0 +1,7 @@
+{
+  "name": "thoughtsTracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
