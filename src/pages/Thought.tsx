@@ -15,7 +15,6 @@ import {
   IonListHeader,
   IonGrid,
   IonRow,
-  IonCol,
   useIonPopover,
   IonCheckbox,
   IonIcon,
@@ -26,9 +25,18 @@ import {
 } from '@ionic/react';
 import { add, close } from 'ionicons/icons';
 import greekUtils from 'greek-utils';
+import OptimizedFilter from 'react-optimized-filter';
 
 import { RouteComponentProps } from 'react-router-dom';
-import { allFeelings } from '../components/feelings';
+import { Feeling, allFeelings } from '../components/feelings';
+
+export interface ThoughtInterface {
+  date: Date;
+  description: string;
+  feelings: Feeling[];
+  thoughts: string;
+  acted: string;
+}
 
 const PopoverList: React.FC<{
   onHide: () => void;
@@ -39,17 +47,35 @@ const PopoverList: React.FC<{
 );
 
 const Feelings: React.FC<{
-  feelings: String[];
-  addFeeling: (a: string) => void;
-  removeFeeling: (a: string) => void;
+  feelings: Feeling[];
+  addFeeling: (a: Feeling) => void;
+  removeFeeling: (a: Feeling) => void;
   onDismiss: () => void;
 }> = ({ feelings, onDismiss, addFeeling, removeFeeling }) => {
-  const happyF = allFeelings.happy;
-  const sadF = allFeelings.sad;
+  const magicNumber = 94;
+  const sadF = allFeelings.slice(0, magicNumber);
+  const happyF = allFeelings.slice(magicNumber, allFeelings.length);
   const [searchText, setSearchText] = useState('');
 
+  const addF = (item: Feeling) => {
+    if (item.mood === 'sad') {
+      sadF[item.id].isChecked = true;
+    } else {
+      happyF[item.id - magicNumber].isChecked = true;
+    }
+    addFeeling(item);
+  };
+
+  const removeF = (item: Feeling) => {
+    if (item.mood === 'sad') {
+      sadF[item.id].isChecked = false;
+    } else {
+      happyF[item.id - magicNumber].isChecked = false;
+    }
+    removeFeeling(item);
+  };
+
   const filterOut = (a: string) => {
-    if (searchText === '') return true;
     return greekUtils.sanitizeDiacritics(a).toUpperCase().includes(greekUtils.sanitizeDiacritics(searchText).toUpperCase());
   };
 
@@ -80,19 +106,24 @@ const Feelings: React.FC<{
           >
             Οταν ΔΕΝ καλύπτονται οι ανάγκες μου
           </IonListHeader>
-          {sadF
-            .filter(({ val }) => filterOut(val))
-            .map(({ val, isChecked }, i) => (
-              <IonItem key={i}>
-                <IonLabel>{val}</IonLabel>
-                <IonCheckbox
-                  slot="end"
-                  value={val}
-                  checked={isChecked}
-                  onIonChange={(e) => (e.detail.checked ? addFeeling(val) : removeFeeling(val))}
-                />
-              </IonItem>
-            ))}
+          <OptimizedFilter
+            items={sadF}
+            predicate={(item) => filterOut(item.val)}
+            skip={searchText === ''}
+            render={(filteredItems) =>
+              filteredItems.map((item) => (
+                <IonItem key={item.id}>
+                  <IonLabel>{item.val}</IonLabel>
+                  <IonCheckbox
+                    slot="end"
+                    value={item.val}
+                    checked={item.isChecked}
+                    onIonChange={(e) => (e.detail.checked ? addF(item) : removeF(item))}
+                  />
+                </IonItem>
+              ))
+            }
+          />
           <IonListHeader
             style={{
               fontSize: '1rem',
@@ -101,19 +132,24 @@ const Feelings: React.FC<{
           >
             Οταν καλύπτονται οι ανάγκες μου
           </IonListHeader>
-          {happyF
-            .filter(({ val }) => filterOut(val))
-            .map(({ val, isChecked }, i) => (
-              <IonItem key={i}>
-                <IonLabel>{val}</IonLabel>
-                <IonCheckbox
-                  slot="end"
-                  value={val}
-                  checked={isChecked}
-                  onIonChange={(e) => (e.detail.checked ? addFeeling(val) : removeFeeling(val))}
-                />
-              </IonItem>
-            ))}
+          <OptimizedFilter
+            items={happyF}
+            predicate={(item) => filterOut(item.val)}
+            skip={searchText === ''}
+            render={(filteredItems) =>
+              filteredItems.map((item) => (
+                <IonItem key={item.id}>
+                  <IonLabel>{item.val}</IonLabel>
+                  <IonCheckbox
+                    slot="end"
+                    value={item.val}
+                    checked={item.isChecked}
+                    onIonChange={(e) => (e.detail.checked ? addF(item) : removeF(item))}
+                  />
+                </IonItem>
+              ))
+            }
+          />
         </IonList>
       </IonContent>
     </div>
@@ -128,17 +164,17 @@ const Thought: React.FC<ThoughtPageProps> = ({ match, history, location }) => {
   const [presentPop, dismissPop] = useIonPopover(PopoverList, { onHide: () => dismiss() });
   const [viewOnly, setViewOnly] = useState(false);
 
-  const [feelings, setFeelings] = useState<String[]>([]);
+  const [feelings, setFeelings] = useState<Feeling[]>([]);
   const [description, setDescription] = useState('');
   const [thoughts, setThoughts] = useState('');
   const [acted, setActed] = useState('');
 
-  const addFeeling = (a: string) => {
+  const addFeeling = (a: Feeling) => {
     setFeelings([...feelings, a]);
   };
 
-  const removeFeeling = (a: string) => {
-    let temp = feelings.filter((f) => f !== a);
+  const removeFeeling = (a: Feeling) => {
+    let temp = feelings.filter((f) => f.id !== a.id);
     setFeelings(temp);
   };
 
@@ -155,7 +191,7 @@ const Thought: React.FC<ThoughtPageProps> = ({ match, history, location }) => {
 
   const saveThoughts = () => {
     let temp = localStorage.getItem('myThoughts');
-    let myThoughts = [];
+    let myThoughts: ThoughtInterface[] = [];
     if (temp) {
       myThoughts = JSON.parse(temp);
     }
@@ -195,9 +231,9 @@ const Thought: React.FC<ThoughtPageProps> = ({ match, history, location }) => {
           </IonRow>
           <IonRow>
             {feelings &&
-              feelings.map((f, i) => (
-                <IonChip key={i}>
-                  <IonLabel>{f}</IonLabel>
+              feelings.map((feeling) => (
+                <IonChip key={feeling.id}>
+                  <IonLabel>{feeling.val}</IonLabel>
                   {!viewOnly && <IonIcon icon={close} />}
                 </IonChip>
               ))}

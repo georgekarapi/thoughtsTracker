@@ -63,10 +63,10 @@ const Home: React.FC<RouteComponentProps> = (props) => {
                     </p>
                   </IonRow>
                   <IonRow>
-                    {f.feelings.slice(0, f.feelings.length > 3 ? 4 : f.feelings.length).map((feeling, j) =>
+                    {f.feelings.slice(0, f.feelings.length > 3 ? 4 : f.feelings.length).map((feeling: any, j) =>
                       j <= 2 ? (
-                        <IonChip key={j}>
-                          <IonLabel>{feeling}</IonLabel>
+                        <IonChip key={feeling.id}>
+                          <IonLabel>{feeling.val}</IonLabel>
                         </IonChip>
                       ) : (
                         <p>...</p>
