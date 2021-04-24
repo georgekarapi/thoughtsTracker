@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import {
   IonContent,
   IonHeader,
@@ -82,69 +82,71 @@ const Feelings: React.FC<{
   };
 
   return (
-    <React.Suspense fallback={null}>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Προσθήκη Συναισθημάτων</IonTitle>
-          <IonButtons slot="end">
-            <IonButton onClick={onDismiss}>ΚΛΕΙΣΙΜΟ</IonButton>
-          </IonButtons>
-        </IonToolbar>
-        <IonToolbar>
-          <IonSearchbar
-            value={searchText}
-            placeholder="Αναζήτηση"
-            onIonChange={(e) => setSearchText(e.detail.value!)}
-          ></IonSearchbar>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent fullscreen>
-        <IonList>
-          <IonListHeader
-            style={{
-              fontSize: '1rem',
-              fontWeight: 700,
-            }}
-          >
-            Οταν ΔΕΝ καλύπτονται οι ανάγκες μου
-          </IonListHeader>
-          {sadF
-            .filter(({ val }) => filterOut(val))
-            .map((feeling) => (
-              <IonItem key={feeling.id}>
-                <IonLabel>{feeling.val}</IonLabel>
-                <IonCheckbox
-                  slot="end"
-                  value={feeling.val}
-                  checked={feeling.isChecked}
-                  onIonChange={(e) => (e.detail.checked ? addF(feeling) : removeF(feeling))}
-                />
-              </IonItem>
-            ))}
-          <IonListHeader
-            style={{
-              fontSize: '1rem',
-              fontWeight: 700,
-            }}
-          >
-            Οταν καλύπτονται οι ανάγκες μου
-          </IonListHeader>
-          {happyF
-            .filter(({ val }) => filterOut(val))
-            .map((feeling) => (
-              <IonItem key={feeling.id}>
-                <IonLabel>{feeling.val}</IonLabel>
-                <IonCheckbox
-                  slot="end"
-                  value={feeling.val}
-                  checked={feeling.isChecked}
-                  onIonChange={(e) => (e.detail.checked ? addF(feeling) : removeF(feeling))}
-                />
-              </IonItem>
-            ))}
-        </IonList>
-      </IonContent>
-    </React.Suspense>
+    <div>
+      <Suspense fallback={null}>
+        <IonHeader>
+          <IonToolbar>
+            <IonTitle>Προσθήκη Συναισθημάτων</IonTitle>
+            <IonButtons slot="end">
+              <IonButton onClick={onDismiss}>ΚΛΕΙΣΙΜΟ</IonButton>
+            </IonButtons>
+          </IonToolbar>
+          <IonToolbar>
+            <IonSearchbar
+              value={searchText}
+              placeholder="Αναζήτηση"
+              onIonChange={(e) => setSearchText(e.detail.value!)}
+            ></IonSearchbar>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent fullscreen>
+          <IonList>
+            <IonListHeader
+              style={{
+                fontSize: '1rem',
+                fontWeight: 700,
+              }}
+            >
+              Οταν ΔΕΝ καλύπτονται οι ανάγκες μου
+            </IonListHeader>
+            {sadF
+              .filter(({ val }) => filterOut(val))
+              .map((feeling) => (
+                <IonItem key={feeling.id}>
+                  <IonLabel>{feeling.val}</IonLabel>
+                  <IonCheckbox
+                    slot="end"
+                    value={feeling.val}
+                    checked={feeling.isChecked}
+                    onIonChange={(e) => (e.detail.checked ? addF(feeling) : removeF(feeling))}
+                  />
+                </IonItem>
+              ))}
+            <IonListHeader
+              style={{
+                fontSize: '1rem',
+                fontWeight: 700,
+              }}
+            >
+              Οταν καλύπτονται οι ανάγκες μου
+            </IonListHeader>
+            {happyF
+              .filter(({ val }) => filterOut(val))
+              .map((feeling) => (
+                <IonItem key={feeling.id}>
+                  <IonLabel>{feeling.val}</IonLabel>
+                  <IonCheckbox
+                    slot="end"
+                    value={feeling.val}
+                    checked={feeling.isChecked}
+                    onIonChange={(e) => (e.detail.checked ? addF(feeling) : removeF(feeling))}
+                  />
+                </IonItem>
+              ))}
+          </IonList>
+        </IonContent>
+      </Suspense>
+    </div>
   );
 };
 
